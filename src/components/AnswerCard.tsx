@@ -4,7 +4,10 @@ import { QuestionType } from "../types/survey";
 import { useSurveyDispatch } from "../context/SurveyContext";
 import SortableOption from "./SortableOption";
 import { DndContext, closestCenter } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 interface AnswerCardProps {
   question: Question;
@@ -17,7 +20,6 @@ interface AnswerCardProps {
 
 const AnswerCard: React.FC<AnswerCardProps> = ({
   question,
-  onDuplicate,
   onDelete,
   children,
   questionCount = 1,
@@ -105,8 +107,14 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
             <div className="mb-2 font-semibold text-sm flex items-center gap-2">
               Options:
             </div>
-            <DndContext collisionDetection={closestCenter} onDragEnd={handleOptionDragEnd}>
-              <SortableContext items={question.options.map((o) => o.id)} strategy={verticalListSortingStrategy}>
+            <DndContext
+              collisionDetection={closestCenter}
+              onDragEnd={handleOptionDragEnd}
+            >
+              <SortableContext
+                items={question.options.map((o) => o.id)}
+                strategy={verticalListSortingStrategy}
+              >
                 {question.options.map((option, idx) => (
                   <SortableOption
                     key={option.id}
@@ -146,13 +154,6 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
       <div>{children}</div>
 
       <div className="flex gap-2 mt-2">
-        <button
-          type="button"
-          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
-          onClick={onDuplicate}
-        >
-          Duplicate
-        </button>
         {questionCount > 1 && (
           <button
             type="button"

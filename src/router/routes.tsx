@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
+import { RouteGuard } from "./middleware";
 
 export interface RouteHandle {
   meta?: {
@@ -19,26 +20,32 @@ declare module "react-router-dom" {
 export const routes: RouteObject[] = [
   {
     path: "/",
-    lazy: async () => {
-      const mod = await import("../layouts/AppLayout");
-      return { Component: mod.default };
-    },
+    element: <RouteGuard />,
     children: [
       {
-        path: "app",
-        handle: {
-          meta: { requiresAuth: true },
+        path: "",
+        lazy: async () => {
+          const mod = await import("../layouts/AppLayout");
+          return { Component: mod.default };
         },
         children: [
           {
-            path: "dashboard",
-            lazy: async () => {
-              const mod = await import("../pages/Dashboard");
-              return {
-                Component: mod.default,
-                handle: { meta: { title: "Dashboard" } },
-              };
+            path: "app",
+            handle: {
+              meta: { requiresAuth: true },
             },
+            children: [
+              {
+                path: "dashboard",
+                lazy: async () => {
+                  const mod = await import("../pages/Dashboard");
+                  return {
+                    Component: mod.default,
+                    handle: { meta: { title: "Dashboard" } },
+                  };
+                },
+              },
+            ],
           },
         ],
       },
@@ -46,17 +53,23 @@ export const routes: RouteObject[] = [
   },
   {
     path: "/auth",
-    element: <AuthLayout />,
+    element: <RouteGuard />,
     handle: {
       meta: { publicOnly: true },
     },
     children: [
       {
-        path: "login",
-        element: <Login />,
-        handle: {
-          meta: { title: "Login" },
-        },
+        path: "",
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+            handle: {
+              meta: { title: "Login" },
+            },
+          },
+        ],
       },
     ],
   },

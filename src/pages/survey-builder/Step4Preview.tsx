@@ -10,7 +10,7 @@ const Step4Preview: React.FC = () => {
   }, [surveyState]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-8">
+    <div className="flex flex-col items-center justify-center bg-gray-50 py-8">
       <div className="w-full max-w-3xl bg-white rounded shadow p-6">
         <h2 className="text-2xl font-bold mb-4">Preview Survey</h2>
         <SurveyPreview survey={surveyState} />

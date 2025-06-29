@@ -1,8 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/auth";
+import { useEffect } from "react";
 
 export default function AppLayout() {
   const { user, logout, isLoading } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user && !isLoading) {
+      navigate("/login");
+    }
+  }, [user, isLoading, navigate]);
 
   return (
     <div>

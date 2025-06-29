@@ -1,0 +1,76 @@
+import { createBrowserRouter, type RouteObject } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/Login";
+
+export interface RouteHandle {
+  meta?: {
+    title?: string;
+    requiresAuth?: boolean;
+    publicOnly?: boolean;
+  };
+}
+
+declare module "react-router-dom" {
+  export default interface RouteObject {
+    handle?: RouteHandle;
+  }
+}
+
+export const routes: RouteObject[] = [
+  {
+    path: "/",
+    lazy: async () => {
+      const mod = await import("../layouts/AppLayout");
+      return { Component: mod.default };
+    },
+    children: [
+      {
+        path: "app",
+        handle: {
+          meta: { requiresAuth: true },
+        },
+        children: [
+          {
+            path: "dashboard",
+            lazy: async () => {
+              const mod = await import("../pages/Dashboard");
+              return {
+                Component: mod.default,
+                handle: { meta: { title: "Dashboard" } },
+              };
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    handle: {
+      meta: { publicOnly: true },
+    },
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+        handle: {
+          meta: { title: "Login" },
+        },
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h2>404 - Not Found</h2>
+      </div>
+    ),
+    handle: {
+      meta: { title: "404" },
+    },
+  },
+];
+
+export const router = createBrowserRouter(routes);

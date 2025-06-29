@@ -47,6 +47,148 @@ export const routes: RouteObject[] = [
               },
             ],
           },
+          {
+            path: "app",
+            handle: {
+              meta: { requiresAuth: true },
+            },
+            children: [
+              {
+                path: "dashboard",
+                lazy: async () => {
+                  const mod = await import("../pages/Dashboard");
+                  return {
+                    Component: mod.default,
+                    handle: { meta: { title: "Dashboard" } },
+                  };
+                },
+              },
+              {
+                path: "survey-builder",
+                children: [
+                  {
+                    index: true,
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step1Metadata"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 1",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-1",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step1Metadata"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 1",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-2",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step2Questions"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 2",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-3",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step3Answers"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 3",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-4",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step4Preview"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 4",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-5",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step5Export"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder - Step 5",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/SurveyBuilderPage"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: {
+                            title: "Survey Builder (legacy)",
+                            requiresAuth: true,
+                          },
+                        },
+                      };
+                    },
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
     ],

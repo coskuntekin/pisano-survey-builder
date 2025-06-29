@@ -1,12 +1,8 @@
-import { Fragment } from "react";
 import "./App.css";
+import { Router } from "./router";
 
 function App() {
-  return (
-    <Fragment>
-      <h1>Pisano</h1>
-    </Fragment>
-  );
+  return <Router />;
 }
 
 export default App;

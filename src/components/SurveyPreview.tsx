@@ -38,9 +38,12 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey }) => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-2">
+        Title:{" "}
         {survey.title || "Untitled Survey"}
       </h2>
-      <p className="mb-6 text-gray-600">{survey.description}</p>
+      <p className="mb-6 text-gray-600">
+        Description:{" "}
+        {survey.description}</p>
       <div className="space-y-8">
         {survey.questions.length === 0 && (
           <div className="text-gray-400 italic">No questions added yet.</div>
@@ -67,17 +70,18 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey }) => {
 
 const QuestionRenderer: React.FC<{ question: Question; index: number }> = ({
   question,
-  index,
 }) => {
   return (
     <div className="border rounded p-4 bg-gray-50">
       <div className="font-medium mb-2">
-        {index + 1}.{" "}
+        Question:{" "}
         {question.text || (
           <small className="italic text-gray-400">Untitled Question</small>
         )}
       </div>
       <div className="mb-2 text-sm text-gray-600">
+        Answer:{" "}
+        <br />
         <span className="font-semibold">Type:</span>{" "}
         {question.type
           .replace("_", " ")
@@ -96,7 +100,9 @@ const QuestionRenderer: React.FC<{ question: Question; index: number }> = ({
               {question.options.map((opt) => (
                 <li key={opt.id}>
                   {opt.text || (
-                    <span className="italic text-gray-400">Untitled Answer</span>
+                    <span className="italic text-gray-400">
+                      Untitled Answer
+                    </span>
                   )}
                 </li>
               ))}

@@ -10,7 +10,6 @@ const Step3Preview: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      // Load existing survey data from localStorage
       const saved = localStorage.getItem(`survey-${id}`);
       if (saved) {
         const parsed = JSON.parse(saved);

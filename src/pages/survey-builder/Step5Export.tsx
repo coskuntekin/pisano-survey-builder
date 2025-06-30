@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSurveyState } from "../../context/SurveyContext";
 
 const Step5Export: React.FC = () => {
@@ -16,7 +16,7 @@ const Step5Export: React.FC = () => {
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute(
       "download",
-      `survey-${survey.title || "untitled"}.json`,
+      `survey-${survey.title || "untitled"}.json`
     );
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
@@ -24,7 +24,7 @@ const Step5Export: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded shadow mt-8">
+    <Fragment>
       <h2 className="text-2xl font-bold mb-4">Export Survey as JSON</h2>
       <p className="mb-4 text-gray-700">
         Click the button below to export your survey as a JSON file. You can use
@@ -39,7 +39,7 @@ const Step5Export: React.FC = () => {
       >
         Export as JSON
       </button>
-    </div>
+    </Fragment>
   );
 };
 

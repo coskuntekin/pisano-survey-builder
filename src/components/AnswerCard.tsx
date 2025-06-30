@@ -90,7 +90,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
         </label>
         <select
           id={`type-${question.id}`}
-          className="border rounded px-2 py-1"
+          className="border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded px-2 py-1 outline-none"
           value={question.type}
           onChange={handleTypeChange}
         >
@@ -142,7 +142,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({
               Text Answer Preview:
             </div>
             <textarea
-              className="w-full border rounded px-2 py-1 min-h-[48px] bg-gray-50"
+              className="w-full border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded px-2 py-1 min-h-[48px] bg-gray-50 outline-none"
               placeholder="User will enter their answer here"
               disabled
               value=""

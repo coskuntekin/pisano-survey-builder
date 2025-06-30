@@ -11,20 +11,23 @@ const Step1Metadata: React.FC = () => {
 
   useEffect(() => {
     if (id) {
+      // Editing existing survey
       const saved = localStorage.getItem(`survey-${id}`);
       if (saved) {
         const parsed = JSON.parse(saved);
-        dispatch({ type: "reset" });
         dispatch({
-          type: "updateMetadata",
-          payload: { title: parsed.title, description: parsed.description },
+          type: "restoreSurvey",
+          payload: parsed,
         });
       } else {
         dispatch({ type: "reset" });
       }
+    } else {
+      // Creating new survey - ensure we start with a fresh state
+      dispatch({ type: "reset" });
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const canProceed =
@@ -33,7 +36,9 @@ const Step1Metadata: React.FC = () => {
 
   const handleNext = () => {
     if (canProceed) {
-      navigate(`/app/survey-builder/step-2/${id}`);
+      // Use the current survey ID or the ID from params
+      const surveyId = id || surveyState.id;
+      navigate(`/app/survey-builder/step-2/${surveyId}`);
     }
   };
 

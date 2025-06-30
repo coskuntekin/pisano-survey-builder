@@ -87,7 +87,7 @@ const initialSurveyState: SurveyState = {
   title: "",
   description: "",
   questions: [],
-  createdAt: new Date().toISOString(),
+  createdAt: "",
 };
 
 function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
@@ -277,11 +277,13 @@ function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
       return {
         ...initialSurveyState,
         id: nanoid(),
+        createdAt: new Date().toISOString(),
       };
     case "resetWithId":
       return {
         ...initialSurveyState,
         id: action.payload.id,
+        createdAt: new Date().toISOString(),
       };
     case "restoreSurvey":
       return action.payload;
@@ -296,11 +298,7 @@ const SurveyDispatchContext = createContext<Dispatch<SurveyAction> | undefined>(
 );
 
 export function SurveyProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(surveyReducer, {
-    ...initialSurveyState,
-    id: nanoid(),
-    createdAt: new Date().toISOString(),
-  });
+  const [state, dispatch] = useReducer(surveyReducer, initialSurveyState);
 
   return (
     <SurveyStateContext.Provider value={state}>

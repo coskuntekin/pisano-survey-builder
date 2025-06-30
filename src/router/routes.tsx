@@ -23,77 +23,84 @@ export const routes: RouteObject[] = [
     element: <RouteGuard />,
     children: [
       {
-        path: "",
+        index: true,
+        lazy: async () => {
+          const { Navigate } = await import("react-router-dom");
+          return {
+            Component: () => <Navigate to="/app/dashboard" replace />,
+          };
+        },
+        handle: {
+          meta: { requiresAuth: true },
+        },
+      },
+      {
+        path: "app",
         lazy: async () => {
           const mod = await import("../layouts/AppLayout");
           return { Component: mod.default };
         },
+        handle: {
+          meta: { requiresAuth: true },
+        },
         children: [
           {
-            path: "app",
-            handle: {
-              meta: { requiresAuth: true },
+            path: "dashboard",
+            lazy: async () => {
+              const mod = await import("../pages/Dashboard");
+              return {
+                Component: mod.default,
+                handle: { meta: { title: "Dashboard" } },
+              };
+            },
+          },
+          {
+            path: "survey-builder",
+            lazy: async () => {
+              const mod = await import("../pages/survey-builder/index");
+              return {
+                Component: mod.default,
+                handle: { meta: { title: "Survey Builder" } },
+              };
             },
             children: [
               {
-                path: "dashboard",
+                path: "step-1/:id?",
                 lazy: async () => {
-                  const mod = await import("../pages/Dashboard");
+                  const mod = await import(
+                    "../pages/survey-builder/Step1Metadata"
+                  );
                   return {
                     Component: mod.default,
-                    handle: { meta: { title: "Dashboard" } },
+                    handle: { meta: { title: "Survey Details" } },
                   };
                 },
               },
               {
-                path: "survey-builder",
+                path: "step-2/:id",
                 lazy: async () => {
-                  const mod = await import("../pages/survey-builder/index");
+                  const mod = await import(
+                    "../pages/survey-builder/Step2QuestionsAnswers"
+                  );
                   return {
                     Component: mod.default,
-                    handle: { meta: { title: "Survey Builder" } },
+                    handle: {
+                      meta: { title: "Survey Questions and Answers" },
+                    },
                   };
                 },
-                children: [
-                  {
-                    path: "step-1/:id?",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step1Metadata"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: { meta: { title: "Survey Details" } },
-                      };
-                    },
-                  },
-                  {
-                    path: "step-2/:id",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step2QuestionsAnswers"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: {
-                          meta: { title: "Survey Questions and Answers" },
-                        },
-                      };
-                    },
-                  },
-                  {
-                    path: "step-3/:id",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step3Preview"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: { meta: { title: "Survey Preview" } },
-                      };
-                    },
-                  },
-                ],
+              },
+              {
+                path: "step-3/:id",
+                lazy: async () => {
+                  const mod = await import(
+                    "../pages/survey-builder/Step3Preview"
+                  );
+                  return {
+                    Component: mod.default,
+                    handle: { meta: { title: "Survey Preview" } },
+                  };
+                },
               },
             ],
           },

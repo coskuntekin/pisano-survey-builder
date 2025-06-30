@@ -19,7 +19,6 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-// Sortable Question Card Component
 const SortableQuestionCard: React.FC<{
   question: Question;
   index: number;
@@ -72,7 +71,6 @@ const SortableQuestionCard: React.FC<{
       style={style}
       className="bg-white border border-gray-200 rounded-lg p-4 mb-4 shadow-sm"
     >
-      {/* Question Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <button
@@ -95,12 +93,11 @@ const SortableQuestionCard: React.FC<{
               />
             </svg>
           </button>
-          <span className="font-medium text-gray-700">
-            Question {index + 1}
-          </span>
+          <p className="font-medium text-gray-700">Question {index + 1}</p>
         </div>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => onDuplicate(question.id)}
             className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
             title="Duplicate question"
@@ -121,6 +118,7 @@ const SortableQuestionCard: React.FC<{
             </svg>
           </button>
           <button
+            type="button"
             onClick={() => onDelete(question.id)}
             className="p-1 text-gray-400 hover:text-red-600 transition-colors"
             title="Delete question"
@@ -143,7 +141,6 @@ const SortableQuestionCard: React.FC<{
         </div>
       </div>
 
-      {/* Question Text Input */}
       <div className="mb-4">
         <textarea
           className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded p-2 outline-none resize-none"
@@ -155,7 +152,6 @@ const SortableQuestionCard: React.FC<{
         />
       </div>
 
-      {/* Question Type Selector */}
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Answer Type
@@ -171,7 +167,6 @@ const SortableQuestionCard: React.FC<{
         </select>
       </div>
 
-      {/* Answer Options */}
       {(questionType === QuestionType.SINGLE_CHOICE ||
         questionType === QuestionType.MULTIPLE_CHOICE) && (
         <div className="space-y-2">
@@ -433,6 +428,32 @@ const Step2QuestionsAnswers: React.FC = () => {
           </SortableContext>
         </DndContext>
       )}
+
+
+            <div className="flex justify-end mt-4">
+        <button
+          onClick={handleAddQuestion}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+          Add Question
+        </button>
+      </div>
+
+      <hr className="my-4 border-gray-200" />
 
       <div className="flex justify-between mt-8">
         <button

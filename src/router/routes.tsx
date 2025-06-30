@@ -45,44 +45,16 @@ export const routes: RouteObject[] = [
                   };
                 },
               },
-            ],
-          },
-          {
-            path: "app",
-            handle: {
-              meta: { requiresAuth: true },
-            },
-            children: [
-              {
-                path: "dashboard",
-                lazy: async () => {
-                  const mod = await import("../pages/Dashboard");
-                  return {
-                    Component: mod.default,
-                    handle: { meta: { title: "Dashboard" } },
-                  };
-                },
-              },
               {
                 path: "survey-builder",
+                lazy: async () => {
+                  const mod = await import("../pages/survey-builder/index");
+                  return {
+                    Component: mod.default,
+                    handle: { meta: { title: "Survey Builder" } },
+                  };
+                },
                 children: [
-                  {
-                    index: true,
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step1Metadata"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 1",
-                            requiresAuth: true,
-                          },
-                        },
-                      };
-                    },
-                  },
                   {
                     path: "step-1",
                     lazy: async () => {
@@ -91,12 +63,7 @@ export const routes: RouteObject[] = [
                       );
                       return {
                         Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 1",
-                            requiresAuth: true,
-                          },
-                        },
+                        handle: { meta: { title: "Survey Details" } },
                       };
                     },
                   },
@@ -108,12 +75,7 @@ export const routes: RouteObject[] = [
                       );
                       return {
                         Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 2",
-                            requiresAuth: true,
-                          },
-                        },
+                        handle: { meta: { title: "Survey Questions" } },
                       };
                     },
                   },
@@ -125,12 +87,7 @@ export const routes: RouteObject[] = [
                       );
                       return {
                         Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 3",
-                            requiresAuth: true,
-                          },
-                        },
+                        handle: { meta: { title: "Survey Answers" } },
                       };
                     },
                   },
@@ -142,12 +99,7 @@ export const routes: RouteObject[] = [
                       );
                       return {
                         Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 4",
-                            requiresAuth: true,
-                          },
-                        },
+                        handle: { meta: { title: "Survey Preview" } },
                       };
                     },
                   },
@@ -159,12 +111,7 @@ export const routes: RouteObject[] = [
                       );
                       return {
                         Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder - Step 5",
-                            requiresAuth: true,
-                          },
-                        },
+                        handle: { meta: { title: "Export Survey" } },
                       };
                     },
                   },

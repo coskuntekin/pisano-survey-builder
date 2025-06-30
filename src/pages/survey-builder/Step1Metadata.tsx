@@ -11,7 +11,6 @@ const Step1Metadata: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      // Editing existing survey
       const saved = localStorage.getItem(`survey-${id}`);
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -23,7 +22,6 @@ const Step1Metadata: React.FC = () => {
         dispatch({ type: "reset" });
       }
     } else {
-      // Creating new survey - ensure we start with a fresh state
       dispatch({ type: "reset" });
     }
 
@@ -36,7 +34,6 @@ const Step1Metadata: React.FC = () => {
 
   const handleNext = () => {
     if (canProceed) {
-      // Use the current survey ID or the ID from params
       const surveyId = id || surveyState.id;
       navigate(`/app/survey-builder/step-2/${surveyId}`);
     }

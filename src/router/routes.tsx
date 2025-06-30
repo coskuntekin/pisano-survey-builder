@@ -56,7 +56,7 @@ export const routes: RouteObject[] = [
                 },
                 children: [
                   {
-                    path: "step-1",
+                    path: "step-1/:id",
                     lazy: async () => {
                       const mod = await import(
                         "../pages/survey-builder/Step1Metadata"
@@ -68,7 +68,7 @@ export const routes: RouteObject[] = [
                     },
                   },
                   {
-                    path: "step-2",
+                    path: "step-2/:id",
                     lazy: async () => {
                       const mod = await import(
                         "../pages/survey-builder/ Step2QuestionsAnswers"
@@ -82,7 +82,7 @@ export const routes: RouteObject[] = [
                     },
                   },
                   {
-                    path: "step-3",
+                    path: "step-3/:id",
                     lazy: async () => {
                       const mod = await import(
                         "../pages/survey-builder/Step3Preview"

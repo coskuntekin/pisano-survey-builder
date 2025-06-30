@@ -71,10 +71,8 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
       {showNext && (
         <button
           type="submit"
-          className={`self-end px-4 py-2 rounded text-white flex items-center gap-2 ${
-            canProceed
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-400 cursor-not-allowed"
+          className={`self-end bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white flex items-center gap-2 ${
+            canProceed ? "cursor-pointer" : " cursor-not-allowed"
           }`}
           disabled={!canProceed}
         >

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import SurveyPreview from "../../components/SurveyPreview";
-import { useSurveyState, useSurveyDispatch } from "../../context/SurveyContext";
+import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
 
 const Step3Preview: React.FC = () => {
   const surveyState = useSurveyState();
@@ -17,19 +17,23 @@ const Step3Preview: React.FC = () => {
           type: "restoreSurvey",
           payload: parsed,
         });
-      } else {
-        dispatch({ type: "reset" });
+      } else if (surveyState.id !== id) {
+        dispatch({ type: "resetWithId", payload: { id } });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, surveyState.id]);
 
-  useEffect(() => {
+  const saveSurveyToLocalStorage = () => {
+    const surveyWithTimestamp = {
+      ...surveyState,
+      updatedAt: new Date().toISOString(),
+    };
     localStorage.setItem(
       `survey-${surveyState.id}`,
-      JSON.stringify(surveyState),
+      JSON.stringify(surveyWithTimestamp),
     );
-  }, [surveyState]);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-2">
@@ -39,7 +43,7 @@ const Step3Preview: React.FC = () => {
             Survey Preview
           </h2>
         </div>
-        <SurveyPreview survey={surveyState} />
+        <SurveyPreview survey={surveyState} onSave={saveSurveyToLocalStorage} />
       </div>
     </div>
   );

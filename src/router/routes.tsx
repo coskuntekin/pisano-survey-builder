@@ -71,11 +71,13 @@ export const routes: RouteObject[] = [
                     path: "step-2",
                     lazy: async () => {
                       const mod = await import(
-                        "../pages/survey-builder/Step2Questions"
+                        "../pages/survey-builder/ Step2QuestionsAnswers"
                       );
                       return {
                         Component: mod.default,
-                        handle: { meta: { title: "Survey Questions" } },
+                        handle: {
+                          meta: { title: "Survey Questions and Answers" },
+                        },
                       };
                     },
                   },
@@ -83,19 +85,7 @@ export const routes: RouteObject[] = [
                     path: "step-3",
                     lazy: async () => {
                       const mod = await import(
-                        "../pages/survey-builder/Step3Answers"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: { meta: { title: "Survey Answers" } },
-                      };
-                    },
-                  },
-                  {
-                    path: "step-4",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step4Preview"
+                        "../pages/survey-builder/Step3Preview"
                       );
                       return {
                         Component: mod.default,

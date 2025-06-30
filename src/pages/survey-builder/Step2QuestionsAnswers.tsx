@@ -14,7 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
 import { QuestionType, type Question } from "../../types/survey";
@@ -270,7 +270,6 @@ const Step2QuestionsAnswers: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      // Load existing survey data from localStorage
       const saved = localStorage.getItem(`survey-${id}`);
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -279,11 +278,32 @@ const Step2QuestionsAnswers: React.FC = () => {
           payload: parsed,
         });
       } else {
-        dispatch({ type: "reset" });
+        dispatch({ type: "resetWithId", payload: { id } });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const saveSurveyToLocalStorage = useCallback(() => {
+    const surveyWithTimestamp = {
+      ...surveyState,
+      updatedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(
+      `survey-${surveyState.id}`,
+      JSON.stringify(surveyWithTimestamp),
+    );
+  }, [surveyState]);
+
+  // Save on page unload to prevent data loss
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      saveSurveyToLocalStorage();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [saveSurveyToLocalStorage]);
 
   useEffect(() => {
     setIsNextEnabled(surveyState.questions.length > 0);
@@ -472,7 +492,10 @@ const Step2QuestionsAnswers: React.FC = () => {
         <button
           type="button"
           className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 flex items-center gap-2"
-          onClick={() => navigate(`../step-1/${id || surveyState.id}`)}
+          onClick={() => {
+            saveSurveyToLocalStorage();
+            navigate(`../step-1/${id || surveyState.id}`);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -495,7 +518,10 @@ const Step2QuestionsAnswers: React.FC = () => {
           className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2 ${
             isNextEnabled ? "cursor-pointer" : "cursor-not-allowed opacity-50"
           }`}
-          onClick={() => navigate(`../step-3/${id || surveyState.id}`)}
+          onClick={() => {
+            saveSurveyToLocalStorage();
+            navigate(`../step-3/${id || surveyState.id}`);
+          }}
           disabled={!isNextEnabled}
         >
           Next (Preview)

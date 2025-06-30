@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import type { SurveyState, Question } from "../types/survey";
-import { submitSurvey } from "../context/SurveyContext";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { submitSurvey } from "../context/SurveyContext";
+import type { Question, SurveyState } from "../types/survey";
 
 interface SurveyPreviewProps {
   survey: SurveyState;
@@ -9,28 +9,21 @@ interface SurveyPreviewProps {
 
 const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey }) => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState<null | string>(null);
-  const [error, setError] = useState<null | string>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setLoading(true);
-    setSuccess(null);
-    setError(null);
     try {
       const result = await submitSurvey(survey);
       if (result.success) {
-        setSuccess("Survey submitted successfully!");
-        setTimeout(() => {
-          navigate("/app/dashboard");
-        }, 1000);
+        console.log("Survey submitted successfully");
       } else {
-        setError("Submission failed.");
+        console.error("Something went wrong");
       }
     } catch (e) {
       console.error(e);
-      setError("Submission failed.");
     } finally {
+      navigate("/app/dashboard");
       setLoading(false);
     }
   };
@@ -75,18 +68,30 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey }) => {
         </button>
         <button
           type="button"
-          className="px-6 py-2 bg-blue-600 text-white rounded font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+          className="px-6 py-2 bg-blue-600 flex items-center gap-x-1.5 text-white rounded font-semibold hover:bg-blue-700 transition disabled:opacity-50"
           onClick={handleSubmit}
           disabled={loading}
         >
-          {loading ? "Submitting..." : "Submit Survey"}
+          {loading ? (
+            <Fragment>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                className="size-4 animate-spin"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z"
+                  fill="currentColor"
+                />
+              </svg>
+              Submitting...
+            </Fragment>
+          ) : (
+            "Submit Survey"
+          )}
         </button>
-      </div>
-      <div className="mt-4 flex justify-center w-full">
-        {success && (
-          <small className="text-green-600 font-medium">{success}</small>
-        )}
-        {error && <small className="text-red-600 font-medium">{error}</small>}
       </div>
     </div>
   );

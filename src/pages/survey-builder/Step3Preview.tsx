@@ -6,7 +6,7 @@ const Step4Preview: React.FC = () => {
   const surveyState = useSurveyState();
 
   useEffect(() => {
-    localStorage.setItem("survey-builder-state", JSON.stringify(surveyState));
+    localStorage.setItem(`survey-${surveyState.id}`, JSON.stringify(surveyState));
   }, [surveyState]);
 
   return (

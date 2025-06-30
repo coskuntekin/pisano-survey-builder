@@ -1,12 +1,31 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SurveyMetadataForm from "../../components/SurveyMetadataForm";
-import { useSurveyState } from "../../context/SurveyContext";
+import { useSurveyState, useSurveyDispatch } from "../../context/SurveyContext";
 
 const Step1Metadata: React.FC = () => {
   const surveyState = useSurveyState();
+  const dispatch = useSurveyDispatch();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (id) {
+      const saved = localStorage.getItem(`survey-${id}`);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        dispatch({ type: "reset" });
+        dispatch({
+          type: "updateMetadata",
+          payload: { title: parsed.title, description: parsed.description },
+        });
+      } else {
+        dispatch({ type: "reset" });
+      }
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const canProceed =
     surveyState.title.trim().length > 0 &&

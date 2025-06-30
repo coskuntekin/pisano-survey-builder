@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SurveyMetadataForm from "../../components/SurveyMetadataForm";
 import { useSurveyState, useSurveyDispatch } from "../../context/SurveyContext";
@@ -19,14 +19,33 @@ const Step1Metadata: React.FC = () => {
           payload: parsed,
         });
       } else {
-        dispatch({ type: "reset" });
+        dispatch({ type: "resetWithId", payload: { id } });
       }
     } else {
       dispatch({ type: "reset" });
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const saveSurveyToLocalStorage = useCallback(() => {
+    const surveyWithTimestamp = {
+      ...surveyState,
+      updatedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(
+      `survey-${surveyState.id}`,
+      JSON.stringify(surveyWithTimestamp),
+    );
+  }, [surveyState]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      saveSurveyToLocalStorage();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [saveSurveyToLocalStorage]);
 
   const canProceed =
     surveyState.title.trim().length > 0 &&
@@ -34,6 +53,7 @@ const Step1Metadata: React.FC = () => {
 
   const handleNext = () => {
     if (canProceed) {
+      saveSurveyToLocalStorage();
       const surveyId = id || surveyState.id;
       navigate(`/app/survey-builder/step-2/${surveyId}`);
     }

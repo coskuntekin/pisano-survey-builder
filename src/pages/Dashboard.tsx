@@ -13,7 +13,6 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSurveyState } from "../context/SurveyContext";
@@ -38,9 +37,9 @@ const Dashboard: React.FC = () => {
     new Set()
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const surveyState = useSurveyState();
 
   const sensors = useSensors(useSensor(PointerSensor));
+  const surveyState = useSurveyState();
 
   useEffect(() => {
     const loadSurveys = () => {
@@ -473,7 +472,7 @@ const Dashboard: React.FC = () => {
               {!searchTerm && (
                 <div className="mt-6">
                   <Link
-                    to={`/app/survey-builder/step-1/${nanoid()}`}
+                    to={`/app/survey-builder/step-1/${surveyState.id}}`}
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
                   >
                     <svg

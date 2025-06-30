@@ -168,23 +168,6 @@ export const routes: RouteObject[] = [
                       };
                     },
                   },
-                  {
-                    path: "",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/SurveyBuilderPage"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: {
-                          meta: {
-                            title: "Survey Builder (legacy)",
-                            requiresAuth: true,
-                          },
-                        },
-                      };
-                    },
-                  },
                 ],
               },
             ],

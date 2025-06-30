@@ -17,7 +17,103 @@ import { CSS } from "@dnd-kit/utilities";
 import React, { Fragment, useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
-import { QuestionType, type Question } from "../../types/survey";
+import {
+  QuestionType,
+  type Question,
+  type QuestionOption,
+} from "../../types/survey";
+
+const SortableOptionItem: React.FC<{
+  option: QuestionOption;
+  optionIndex: number;
+  questionType: QuestionType;
+  onUpdateOption: (text: string) => void;
+  onDeleteOption: () => void;
+  canDelete: boolean;
+}> = ({
+  option,
+  optionIndex,
+  questionType,
+  onUpdateOption,
+  onDeleteOption,
+  canDelete,
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: option.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className="flex items-center gap-2">
+      <button
+        {...attributes}
+        {...listeners}
+        className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-gray-600"
+        title="Drag to reorder option"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-4 h-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+      <div className="flex items-center">
+        {questionType === QuestionType.SINGLE_CHOICE ? (
+          <div className="w-4 h-4 border-2 border-gray-300 rounded-full"></div>
+        ) : (
+          <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
+        )}
+      </div>
+      <input
+        type="text"
+        placeholder={`Option ${optionIndex + 1}`}
+        value={option.text}
+        onChange={(e) => onUpdateOption(e.target.value)}
+        className="flex-1 border border-gray-300 rounded px-2 py-1 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-200 outline-none"
+      />
+      {canDelete && (
+        <button
+          onClick={onDeleteOption}
+          className="text-gray-400 hover:text-red-600 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+};
 
 const SortableQuestionCard: React.FC<{
   question: Question;
@@ -28,6 +124,11 @@ const SortableQuestionCard: React.FC<{
   onAddOption: (questionId: string) => void;
   onUpdateOption: (questionId: string, optionId: string, text: string) => void;
   onDeleteOption: (questionId: string, optionId: string) => void;
+  onReorderOptions: (
+    questionId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => void;
 }> = ({
   question,
   index,
@@ -37,6 +138,7 @@ const SortableQuestionCard: React.FC<{
   onAddOption,
   onUpdateOption,
   onDeleteOption,
+  onReorderOptions,
 }) => {
   const {
     attributes,
@@ -46,6 +148,13 @@ const SortableQuestionCard: React.FC<{
     transition,
     isDragging,
   } = useSortable({ id: question.id });
+
+  const optionSensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -195,47 +304,41 @@ const SortableQuestionCard: React.FC<{
               Add Option
             </button>
           </div>
-          {question.options.map((option, optionIndex) => (
-            <div key={option.id} className="flex items-center gap-2">
-              <div className="flex items-center">
-                {questionType === QuestionType.SINGLE_CHOICE ? (
-                  <div className="w-4 h-4 border-2 border-gray-300 rounded-full"></div>
-                ) : (
-                  <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
-                )}
-              </div>
-              <input
-                type="text"
-                placeholder={`Option ${optionIndex + 1}`}
-                value={option.text}
-                onChange={(e) =>
-                  onUpdateOption(question.id, option.id, e.target.value)
-                }
-                className="flex-1 border border-gray-300 rounded px-2 py-1 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-200 outline-none"
-              />
-              {question.options.length > 1 && (
-                <button
-                  onClick={() => onDeleteOption(question.id, option.id)}
-                  className="text-gray-400 hover:text-red-600 transition-colors"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              )}
-            </div>
-          ))}
+          <DndContext
+            sensors={optionSensors}
+            collisionDetection={closestCenter}
+            onDragEnd={(event) => {
+              const { active, over } = event;
+              if (active.id !== over?.id) {
+                const oldIndex = question.options.findIndex(
+                  (o) => o.id === active.id,
+                );
+                const newIndex = question.options.findIndex(
+                  (o) => o.id === over?.id,
+                );
+                onReorderOptions(question.id, oldIndex, newIndex);
+              }
+            }}
+          >
+            <SortableContext
+              items={question.options.map((o) => o.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {question.options.map((option, optionIndex) => (
+                <SortableOptionItem
+                  key={option.id}
+                  option={option}
+                  optionIndex={optionIndex}
+                  questionType={questionType}
+                  onUpdateOption={(text) =>
+                    onUpdateOption(question.id, option.id, text)
+                  }
+                  onDeleteOption={() => onDeleteOption(question.id, option.id)}
+                  canDelete={question.options.length > 1}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
         </div>
       )}
 
@@ -366,6 +469,17 @@ const Step2QuestionsAnswers: React.FC = () => {
     });
   };
 
+  const handleReorderOptions = (
+    questionId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => {
+    dispatch({
+      type: "reorderOptions",
+      payload: { questionId, fromIndex, toIndex },
+    });
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
@@ -457,6 +571,7 @@ const Step2QuestionsAnswers: React.FC = () => {
                 onAddOption={handleAddOption}
                 onUpdateOption={handleUpdateOption}
                 onDeleteOption={handleDeleteOption}
+                onReorderOptions={handleReorderOptions}
               />
             ))}
           </SortableContext>

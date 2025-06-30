@@ -22,10 +22,6 @@ export function RouteGuard() {
     }
   }, [meta.title]);
 
-  if (auth.isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (meta.publicOnly && auth.isAuthenticated) {
     return <Navigate to="/app/dashboard" replace />;
   }

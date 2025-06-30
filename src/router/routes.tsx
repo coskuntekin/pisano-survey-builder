@@ -56,6 +56,44 @@ export const routes: RouteObject[] = [
                 },
                 children: [
                   {
+                    path: "step-1",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step1Metadata"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: { meta: { title: "Survey Details" } },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-2",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step2QuestionsAnswers"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: {
+                          meta: { title: "Survey Questions and Answers" },
+                        },
+                      };
+                    },
+                  },
+                  {
+                    path: "step-3",
+                    lazy: async () => {
+                      const mod = await import(
+                        "../pages/survey-builder/Step3Preview"
+                      );
+                      return {
+                        Component: mod.default,
+                        handle: { meta: { title: "Survey Preview" } },
+                      };
+                    },
+                  },
+                  {
                     path: "step-1/:id",
                     lazy: async () => {
                       const mod = await import(
@@ -71,7 +109,7 @@ export const routes: RouteObject[] = [
                     path: "step-2/:id",
                     lazy: async () => {
                       const mod = await import(
-                        "../pages/survey-builder/ Step2QuestionsAnswers"
+                        "../pages/survey-builder/Step2QuestionsAnswers"
                       );
                       return {
                         Component: mod.default,

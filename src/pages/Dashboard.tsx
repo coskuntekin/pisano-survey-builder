@@ -92,7 +92,6 @@ const Dashboard: React.FC = () => {
   const handleEditSurvey = (surveyId: string) => {
     const survey = surveys.find(s => s.id === surveyId);
     if (survey) {
-      localStorage.setItem("survey-builder-state", JSON.stringify(survey));
       navigate("/app/survey-builder/step-1");
     }
   };

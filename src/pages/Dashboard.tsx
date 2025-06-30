@@ -15,7 +15,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSurveyState } from "../context/SurveyContext";
 
 interface Survey {
@@ -38,7 +38,6 @@ const Dashboard: React.FC = () => {
     new Set()
   );
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
   const surveyState = useSurveyState();
 
   const sensors = useSensors(useSensor(PointerSensor));
@@ -97,13 +96,6 @@ const Dashboard: React.FC = () => {
       setSelectedSurveys(new Set());
     } else {
       setSelectedSurveys(new Set(filteredSurveys.map((s) => s.id)));
-    }
-  };
-
-  const handleEditSurvey = (surveyId: string) => {
-    const survey = surveys.find((s) => s.id === surveyId);
-    if (survey) {
-      navigate(`/app/survey-builder/step-1/${survey.id}`);
     }
   };
 
@@ -263,8 +255,9 @@ const Dashboard: React.FC = () => {
         </td>
         <td className="px-6 py-4">
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => handleEditSurvey(survey.id)}
+            <Link
+              title="Edit Survey"
+              to={`/app/survey-builder/step-1/${survey.id}`}
               className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               <svg
@@ -282,7 +275,7 @@ const Dashboard: React.FC = () => {
                 />
               </svg>
               Edit
-            </button>
+            </Link>
             <button
               onClick={() => handleDownloadSurvey(survey)}
               className="inline-flex items-center px-3 py-1.5 border border-green-300 text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"

@@ -1,10 +1,6 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
-import { QuestionType, type Question } from "../../types/survey";
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   KeyboardSensor,
   PointerSensor,
   useSensor,
@@ -14,10 +10,14 @@ import {
 import {
   SortableContext,
   sortableKeyboardCoordinates,
+  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import React, { Fragment, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
+import { QuestionType, type Question } from "../../types/survey";
 
 const SortableQuestionCard: React.FC<{
   question: Question;
@@ -266,10 +266,6 @@ const Step2QuestionsAnswers: React.FC = () => {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
-
-  useEffect(() => {
-    localStorage.setItem("survey-builder-state", JSON.stringify(surveyState));
-  }, [surveyState]);
 
   useEffect(() => {
     setIsNextEnabled(surveyState.questions.length > 0);

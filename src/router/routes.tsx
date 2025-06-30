@@ -103,18 +103,6 @@ export const routes: RouteObject[] = [
                       };
                     },
                   },
-                  {
-                    path: "step-5",
-                    lazy: async () => {
-                      const mod = await import(
-                        "../pages/survey-builder/Step5Export"
-                      );
-                      return {
-                        Component: mod.default,
-                        handle: { meta: { title: "Export Survey" } },
-                      };
-                    },
-                  },
                 ],
               },
             ],

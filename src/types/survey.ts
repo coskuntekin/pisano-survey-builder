@@ -22,4 +22,6 @@ export interface SurveyState {
   title: string;
   description: string;
   questions: Question[];
+  createdAt?: string;
+  updatedAt?: string;
 }

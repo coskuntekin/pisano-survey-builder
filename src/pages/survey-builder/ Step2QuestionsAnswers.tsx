@@ -15,7 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
 import { QuestionType, type Question } from "../../types/survey";
 
@@ -257,6 +257,7 @@ const Step2QuestionsAnswers: React.FC = () => {
   const surveyState = useSurveyState();
   const dispatch = useSurveyDispatch();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
   const [isNextEnabled, setIsNextEnabled] = useState(false);
 
@@ -425,8 +426,7 @@ const Step2QuestionsAnswers: React.FC = () => {
         </DndContext>
       )}
 
-
-            <div className="flex justify-end mt-4">
+      <div className="flex justify-end mt-4">
         <button
           onClick={handleAddQuestion}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
@@ -455,7 +455,7 @@ const Step2QuestionsAnswers: React.FC = () => {
         <button
           type="button"
           className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 flex items-center gap-2"
-          onClick={() => navigate("../step-1")}
+          onClick={() => navigate(`../step-1/${id}`)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -478,7 +478,7 @@ const Step2QuestionsAnswers: React.FC = () => {
           className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2 ${
             isNextEnabled ? "cursor-pointer" : "cursor-not-allowed opacity-50"
           }`}
-          onClick={() => navigate("../step-3")}
+          onClick={() => navigate(`../step-3/${id}`)}
           disabled={!isNextEnabled}
         >
           Next (Preview)

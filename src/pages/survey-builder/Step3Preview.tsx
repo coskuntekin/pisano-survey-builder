@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useSurveyState } from "../../context/SurveyContext";
 import SurveyPreview from "../../components/SurveyPreview";
 
 const Step4Preview: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const surveyState = useSurveyState();
 
   useEffect(() => {
-    localStorage.setItem(`survey-${surveyState.id}`, JSON.stringify(surveyState));
-  }, [surveyState]);
+    if (id) {
+      localStorage.setItem(`survey-${id}`, JSON.stringify(surveyState));
+    }
+  }, [id, surveyState]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-2">

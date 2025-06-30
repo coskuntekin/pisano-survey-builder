@@ -54,7 +54,7 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter survey title"
-          className="border px-3 py-2 rounded"
+          className="border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-3 py-2 rounded outline-none"
           disabled={disabled}
         />
       </label>
@@ -64,17 +64,35 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Enter survey description"
-          className="border px-3 py-2 rounded resize-y min-h-[60px]"
+          className="border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-3 py-2 rounded resize-y min-h-[60px] outline-none"
           disabled={disabled}
         />
       </label>
       {showNext && (
         <button
           type="submit"
-          className={`self-end px-4 py-2 rounded text-white ${canProceed ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
+          className={`self-end px-4 py-2 rounded text-white flex items-center gap-2 ${
+            canProceed
+              ? "bg-blue-600 hover:bg-blue-700"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
           disabled={!canProceed}
         >
           Next
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+            />
+          </svg>
         </button>
       )}
     </form>

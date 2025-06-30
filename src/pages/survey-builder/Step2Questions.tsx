@@ -9,10 +9,17 @@ const Step2Questions: React.FC = () => {
   const navigate = useNavigate();
 
   const [newQuestionText, setNewQuestionText] = useState("");
+  const [isNextEnabled, setIsNextEnabled] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("survey-builder-state", JSON.stringify(surveyState));
   }, [surveyState]);
+
+  useEffect(() => {
+    setIsNextEnabled(
+      newQuestionText.trim() !== "" || surveyState.questions.length > 0
+    );
+  }, [newQuestionText, surveyState.questions.length]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +52,7 @@ const Step2Questions: React.FC = () => {
         <div className="flex justify-between mt-8">
           <button
             type="button"
-            className="px-4 py-2 bg-gray-300 flex items-center gap-x-2 text-gray-800 rounded hover:bg-gray-400"
+            className="px-4 cursor-pointer py-2 bg-gray-300 flex items-center gap-x-2 text-gray-800 rounded hover:bg-gray-400"
             onClick={() => navigate("../step-1")}
           >
             <svg
@@ -66,11 +73,10 @@ const Step2Questions: React.FC = () => {
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 flex items-center gap-x-2 text-white rounded hover:bg-blue-700"
-            disabled={
-              newQuestionText.trim() === "" &&
-              surveyState.questions.length === 0
-            }
+            className={`px-4 py-2 bg-blue-600 flex items-center gap-x-2 text-white rounded hover:bg-blue-700${
+              isNextEnabled ? " cursor-pointer" : " cursor-not-allowed"
+            }`}
+            disabled={!isNextEnabled}
           >
             Next
             <svg

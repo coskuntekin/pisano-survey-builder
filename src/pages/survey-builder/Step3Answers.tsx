@@ -8,10 +8,17 @@ const Step3Answers: React.FC = () => {
   const navigate = useNavigate();
 
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [isNextEnabled, setIsNextEnabled] = useState(
+    survey.questions.length > 0
+  );
 
   useEffect(() => {
     localStorage.setItem("survey-builder-state", JSON.stringify(survey));
   }, [survey]);
+
+  useEffect(() => {
+    setIsNextEnabled(survey.questions.length > 0);
+  }, [survey.questions.length]);
 
   const handlePrev = () => {
     setCurrentIdx((idx) => Math.max(0, idx - 1));
@@ -54,7 +61,7 @@ const Step3Answers: React.FC = () => {
       <div className="flex justify-between mt-8">
         <button
           type="button"
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 flex items-center gap-2"
+          className="px-4 py-2 cursor-pointer bg-gray-200 text-gray-700 rounded hover:bg-gray-300 flex items-center gap-2"
           onClick={() => {
             if (currentIdx === 0) {
               navigate("/app/survey-builder/step-2");
@@ -82,9 +89,11 @@ const Step3Answers: React.FC = () => {
         </button>
         <button
           type="button"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
+          className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2${
+            isNextEnabled ? " cursor-pointer" : " cursor-not-allowed"
+          }`}
           onClick={handleNext}
-          disabled={survey.questions.length === 0}
+          disabled={!isNextEnabled}
         >
           {currentIdx === survey.questions.length - 1
             ? "Next (Preview)"

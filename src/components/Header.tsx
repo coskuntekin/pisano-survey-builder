@@ -29,15 +29,17 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
           </NavLink>
           <NavLink
             to="/app/survey-builder"
-            end
-            className={({ isActive }) =>
-              [
+            className={() => {
+              const active =
+                typeof window !== "undefined" &&
+                window.location.pathname.startsWith("/app/survey-builder");
+              return [
                 "px-3 py-2 rounded transition-colors",
-                isActive
+                active
                   ? "bg-blue-600 text-white"
                   : "text-blue-700 hover:bg-blue-100",
-              ].join(" ")
-            }
+              ].join(" ");
+            }}
           >
             Survey Builder
           </NavLink>

@@ -1,15 +1,11 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import SurveyMetadataForm from "../../components/SurveyMetadataForm";
 import { useSurveyState } from "../../context/SurveyContext";
-import { useNavigate } from "react-router-dom";
 
 const Step1Metadata: React.FC = () => {
   const surveyState = useSurveyState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.setItem("survey-builder-state", JSON.stringify(surveyState));
-  }, [surveyState]);
 
   const canProceed =
     surveyState.title.trim().length > 0 &&

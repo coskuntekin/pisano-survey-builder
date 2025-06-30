@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
             Dashboard
           </NavLink>
           <NavLink
-            to="app/survey-builder"
+            to="/app/survey-builder"
             end
             className={({ isActive }) =>
               [

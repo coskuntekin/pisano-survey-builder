@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 
 // Add TextEncoder/TextDecoder polyfills for Node.js environment
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { TextEncoder, TextDecoder } = require("util");
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;

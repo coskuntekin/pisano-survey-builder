@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
 import SurveyMetadataForm from "../../components/SurveyMetadataForm";
 import { useSurveyState, useSurveyDispatch } from "../../context/SurveyContext";
 
@@ -9,25 +10,11 @@ const Step1Metadata: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    if (id) {
-      const saved = localStorage.getItem(`survey-${id}`);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        dispatch({
-          type: "restoreSurvey",
-          payload: parsed,
-        });
-      } else {
-        dispatch({ type: "resetWithId", payload: { id } });
-      }
-    } else {
-      dispatch({ type: "reset" });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
   const saveSurveyToLocalStorage = useCallback(() => {
+    if (!surveyState.id) {
+      return;
+    }
+
     const surveyWithTimestamp = {
       ...surveyState,
       updatedAt: new Date().toISOString(),
@@ -46,6 +33,38 @@ const Step1Metadata: React.FC = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [saveSurveyToLocalStorage]);
+
+  useEffect(() => {
+    if (!id) {
+      const newId = nanoid();
+      navigate(`/app/survey-builder/step-1/${newId}`, { replace: true });
+      return;
+    }
+
+    if (surveyState.id === id) {
+      return;
+    }
+
+    const saved = localStorage.getItem(`survey-${id}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        dispatch({
+          type: "restoreSurvey",
+          payload: parsed,
+        });
+      } catch (error) {
+        console.error("Failed to parse saved survey:", error);
+        dispatch({ type: "resetWithId", payload: { id } });
+      }
+    } else {
+      dispatch({ type: "resetWithId", payload: { id } });
+    }
+  }, [id, navigate, surveyState.id, dispatch]);
+
+  if (!surveyState.id || (id && surveyState.id !== id)) {
+    return null;
+  }
 
   const canProceed =
     surveyState.title.trim().length > 0 &&

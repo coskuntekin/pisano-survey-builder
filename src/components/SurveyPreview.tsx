@@ -5,15 +5,19 @@ import type { Question, SurveyState } from "../types/survey";
 
 interface SurveyPreviewProps {
   survey: SurveyState;
+  onSave?: () => void;
 }
 
-const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey }) => {
+const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey, onSave }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      if (onSave) {
+        onSave();
+      }
       const result = await submitSurvey(survey);
       if (result.success) {
         console.log("Survey submitted successfully");

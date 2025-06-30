@@ -5,9 +5,10 @@ interface HeaderProps {
   user: { name: string } | null;
   logout: () => void;
   isLoading: boolean;
+  surveyId?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
+const Header: React.FC<HeaderProps> = ({ user, logout, isLoading, surveyId }) => {
   return (
     <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white shadow-sm sticky top-0 z-10">
       <div className="flex items-center gap-8">
@@ -28,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
             Dashboard
           </NavLink>
           <NavLink
-            to="/app/survey-builder"
+            to={surveyId ? `/app/survey-builder/step-1/${surveyId}` : "/app/survey-builder"}
             className={() => {
               const active =
                 typeof window !== "undefined" &&

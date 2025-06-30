@@ -60,6 +60,11 @@ type ReorderOptionsAction = {
 
 type ResetSurveyAction = { type: "reset" };
 
+type RestoreSurveyAction = {
+  type: "restoreSurvey";
+  payload: SurveyState;
+};
+
 type SurveyAction =
   | UpdateMetadataAction
   | AddQuestionAction
@@ -71,7 +76,8 @@ type SurveyAction =
   | UpdateOptionAction
   | DeleteOptionAction
   | ReorderOptionsAction
-  | ResetSurveyAction;
+  | ResetSurveyAction
+  | RestoreSurveyAction;
 
 const initialSurveyState: SurveyState = {
   id: nanoid(),
@@ -268,6 +274,8 @@ function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
         ...initialSurveyState,
         id: nanoid(),
       };
+    case "restoreSurvey":
+      return action.payload;
     default:
       return state;
   }

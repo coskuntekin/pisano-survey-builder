@@ -1,14 +1,34 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import SurveyPreview from "../../components/SurveyPreview";
-import { useSurveyState } from "../../context/SurveyContext";
+import { useSurveyState, useSurveyDispatch } from "../../context/SurveyContext";
 
-const Step4Preview: React.FC = () => {
+const Step3Preview: React.FC = () => {
   const surveyState = useSurveyState();
+  const dispatch = useSurveyDispatch();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (id) {
+      // Load existing survey data from localStorage
+      const saved = localStorage.getItem(`survey-${id}`);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        dispatch({
+          type: "restoreSurvey",
+          payload: parsed,
+        });
+      } else {
+        dispatch({ type: "reset" });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     localStorage.setItem(
       `survey-${surveyState.id}`,
-      JSON.stringify(surveyState)
+      JSON.stringify(surveyState),
     );
   }, [surveyState]);
 
@@ -26,4 +46,4 @@ const Step4Preview: React.FC = () => {
   );
 };
 
-export default Step4Preview;
+export default Step3Preview;

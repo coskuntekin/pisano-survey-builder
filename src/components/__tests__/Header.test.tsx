@@ -6,6 +6,7 @@ import Header from "../Header";
 // Mock react-router-dom's NavLink to avoid routing issues in tests
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
   NavLink: ({ children, to, className, end, ...props }: any) => (
     <a
       href={to}

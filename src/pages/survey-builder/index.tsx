@@ -6,7 +6,6 @@ const steps = [
   { label: "Questions", path: "/app/survey-builder/step-2" },
   { label: "Answers", path: "/app/survey-builder/step-3" },
   { label: "Preview", path: "/app/survey-builder/step-4" },
-  { label: "Export", path: "/app/survey-builder/step-5" },
 ];
 
 const SurveyBuilderIndex: React.FC = () => {

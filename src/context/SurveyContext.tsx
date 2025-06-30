@@ -60,6 +60,8 @@ type ReorderOptionsAction = {
 
 type ResetSurveyAction = { type: "reset" };
 
+type ResetWithIdAction = { type: "resetWithId"; payload: { id: string } };
+
 type RestoreSurveyAction = {
   type: "restoreSurvey";
   payload: SurveyState;
@@ -77,13 +79,15 @@ type SurveyAction =
   | DeleteOptionAction
   | ReorderOptionsAction
   | ResetSurveyAction
+  | ResetWithIdAction
   | RestoreSurveyAction;
 
 const initialSurveyState: SurveyState = {
-  id: nanoid(),
+  id: "",
   title: "",
   description: "",
   questions: [],
+  createdAt: new Date().toISOString(),
 };
 
 function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
@@ -274,6 +278,11 @@ function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
         ...initialSurveyState,
         id: nanoid(),
       };
+    case "resetWithId":
+      return {
+        ...initialSurveyState,
+        id: action.payload.id,
+      };
     case "restoreSurvey":
       return action.payload;
     default:
@@ -287,7 +296,11 @@ const SurveyDispatchContext = createContext<Dispatch<SurveyAction> | undefined>(
 );
 
 export function SurveyProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(surveyReducer, initialSurveyState);
+  const [state, dispatch] = useReducer(surveyReducer, {
+    ...initialSurveyState,
+    id: nanoid(),
+    createdAt: new Date().toISOString(),
+  });
 
   return (
     <SurveyStateContext.Provider value={state}>

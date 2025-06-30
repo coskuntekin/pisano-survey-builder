@@ -3,9 +3,8 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 
 const steps = [
   { label: "Details", path: "/app/survey-builder/step-1" },
-  { label: "Questions", path: "/app/survey-builder/step-2" },
-  { label: "Answers", path: "/app/survey-builder/step-3" },
-  { label: "Preview", path: "/app/survey-builder/step-4" },
+  { label: "Questions and Answers", path: "/app/survey-builder/step-2" },
+  { label: "Preview", path: "/app/survey-builder/step-3" },
 ];
 
 const SurveyBuilderIndex: React.FC = () => {

@@ -398,7 +398,6 @@ const Step2QuestionsAnswers: React.FC = () => {
     );
   }, [surveyState]);
 
-  // Save on page unload to prevent data loss
   useEffect(() => {
     const handleBeforeUnload = () => {
       saveSurveyToLocalStorage();

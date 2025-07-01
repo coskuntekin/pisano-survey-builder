@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useSurveyDispatch } from "../context/SurveyContext";
 import type { Question } from "../types/survey";
 import AnswerCard from "./AnswerCard";
@@ -11,7 +11,7 @@ const QuestionList: React.FC<QuestionListProps> = ({ questions }) => {
   const dispatch = useSurveyDispatch();
 
   return (
-    <div>
+    <Fragment>
       <h3 className="mb-2 font-semibold">Answers</h3>
       {questions.length === 0 ? (
         <div className="text-gray-500">No answers added yet.</div>
@@ -42,7 +42,7 @@ const QuestionList: React.FC<QuestionListProps> = ({ questions }) => {
           />
         ))
       )}
-    </div>
+    </Fragment>
   );
 };
 

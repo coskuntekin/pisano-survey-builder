@@ -3,6 +3,7 @@ export const QuestionType = {
   MULTIPLE_CHOICE: "MULTIPLE_CHOICE",
   TEXT_INPUT: "TEXT_INPUT",
 } as const;
+
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType];
 
 export interface QuestionOption {

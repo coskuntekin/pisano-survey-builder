@@ -133,7 +133,7 @@ export const routes: RouteObject[] = [
   {
     path: "*",
     element: (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
+      <div className="p-8 text-center">
         <h2>404 - Not Found</h2>
       </div>
     ),

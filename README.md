@@ -4,10 +4,6 @@ Create dynamic surveys with drag-and-drop functionality, real-time preview, and 
 
 ## Installation
 
-### Prerequisites
-- Node.js (version 16 or higher)
-- npm or yarn package manager
-
 ### Setup Instructions
 
 1. **Clone the repository**

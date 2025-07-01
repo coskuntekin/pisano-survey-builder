@@ -39,11 +39,11 @@ const SurveyBuilderIndex: React.FC = () => {
                     >
                       {idx + 1}
                     </span>
-                    <span
+                    <small
                       className={`text-xs ${isActive ? "text-blue-600 font-semibold" : "text-gray-500"}`}
                     >
                       {step.label}
-                    </span>
+                    </small>
                   </li>
                 );
               })}
@@ -56,6 +56,7 @@ const SurveyBuilderIndex: React.FC = () => {
               steps.
             </p>
           </div>
+
           <Outlet />
 
           {location.pathname === "/app/survey-builder" && (

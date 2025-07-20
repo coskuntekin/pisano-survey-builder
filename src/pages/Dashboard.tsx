@@ -33,7 +33,7 @@ interface Survey {
 const Dashboard: React.FC = () => {
   const [surveys, setSurveys] = useState<Survey[]>([]);
   const [selectedSurveys, setSelectedSurveys] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -62,8 +62,8 @@ const Dashboard: React.FC = () => {
       setSurveys(
         storedSurveys.sort(
           (a, b) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-        )
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        ),
       );
     };
 
@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
   const filteredSurveys = surveys.filter(
     (survey) =>
       survey.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      survey.description.toLowerCase().includes(searchTerm.toLowerCase())
+      survey.description.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleSelectSurvey = (surveyId: string) => {
@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleDownloadSurvey = (survey: Survey) => {
+  const createAnchorNode = (survey: Survey) => {
     const dataStr =
       "data:text/json;charset=utf-8," +
       encodeURIComponent(JSON.stringify(survey, null, 2));
@@ -104,7 +104,7 @@ const Dashboard: React.FC = () => {
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute(
       "download",
-      `survey-${survey.title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.json`
+      `survey-${survey.title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.json`,
     );
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
@@ -112,19 +112,16 @@ const Dashboard: React.FC = () => {
   };
 
   const handleDownloadSelected = () => {
-    const selectedSurveyData = surveys.filter((s) => selectedSurveys.has(s.id));
-    const dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(selectedSurveyData, null, 2));
-    const downloadAnchorNode = document.createElement("a");
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute(
-      "download",
-      `selected-surveys-${new Date().toISOString().split("T")[0]}.json`
-    );
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+    selectedSurveys.forEach((surveyId) => {
+      const survey = surveys.find((s) => s.id === surveyId);
+      if (survey) {
+        createAnchorNode(survey);
+      }
+    });
+  };
+
+  const handleDownloadSurvey = (survey: Survey) => {
+    createAnchorNode(survey);
   };
 
   const handleRemoveSurvey = (surveyId: string) => {
@@ -220,12 +217,12 @@ const Dashboard: React.FC = () => {
         </td>
         <td className="px-6 py-4">
           <div className="flex flex-col">
-            <div className="font-medium text-gray-900">
+            <p className="font-medium text-gray-900">
               {survey.title || "Untitled Survey"}
-            </div>
-            <div className="text-sm text-gray-500 mt-1">
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
               {survey.description || "No description"}
-            </div>
+            </p>
           </div>
         </td>
         <td className="px-6 py-4 text-sm text-gray-500">
@@ -297,7 +294,7 @@ const Dashboard: React.FC = () => {
               onClick={() => {
                 if (
                   window.confirm(
-                    "Are you sure you want to delete this survey? This action cannot be undone."
+                    "Are you sure you want to delete this survey? This action cannot be undone.",
                   )
                 ) {
                   handleRemoveSurvey(survey.id);
@@ -394,10 +391,11 @@ const Dashboard: React.FC = () => {
               </div>
               {selectedSurveys.size > 0 && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-700">
+                  <p className="text-sm text-gray-700">
                     {selectedSurveys.size} selected
-                  </span>
+                  </p>
                   <button
+                    type="button"
                     onClick={handleDownloadSelected}
                     className="inline-flex items-center px-3 py-1.5 border border-green-300 text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100"
                   >
@@ -418,6 +416,7 @@ const Dashboard: React.FC = () => {
                     Download Selected
                   </button>
                   <button
+                    type="button"
                     onClick={handleRemoveSelected}
                     className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100"
                   >

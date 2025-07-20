@@ -8,12 +8,12 @@ export default function AppLayout() {
 
   return (
     <SurveyProvider>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <section className="min-h-screen flex flex-col bg-gray-50">
         <Header user={user} logout={logout} isLoading={isLoading} />
         <main className="flex-1 p-8">
           <Outlet />
         </main>
-      </div>
+      </section>
     </SurveyProvider>
   );
 }

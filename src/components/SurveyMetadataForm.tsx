@@ -48,7 +48,7 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
       }}
     >
       <label className="flex flex-col">
-        <span className="font-semibold mb-1">Survey Title</span>
+        <small className="font-semibold mb-1">Survey Title</small>
         <input
           type="text"
           value={title}
@@ -59,7 +59,7 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
         />
       </label>
       <label className="flex flex-col">
-        <span className="font-semibold mb-1">Description</span>
+        <small className="font-semibold mb-1">Description</small>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}

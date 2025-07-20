@@ -81,7 +81,7 @@ export default function Login() {
           role="alert"
           aria-live="assertive"
         >
-          {error}
+          <p>{error}</p>
         </div>
       )}
     </form>

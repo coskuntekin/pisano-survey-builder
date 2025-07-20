@@ -14,7 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSurveyDispatch, useSurveyState } from "../../context/SurveyContext";
 import {
@@ -92,6 +92,7 @@ const SortableOptionItem: React.FC<{
       />
       {canDelete && (
         <button
+          type="button"
           onClick={onDeleteOption}
           className="text-gray-400 hover:text-red-600 transition-colors"
         >
@@ -284,6 +285,7 @@ const SortableQuestionCard: React.FC<{
               Answer Options
             </label>
             <button
+              type="button"
               onClick={() => onAddOption(question.id)}
               className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
@@ -509,6 +511,7 @@ const Step2QuestionsAnswers: React.FC = () => {
           </p>
         </div>
         <button
+          type="button"
           onClick={handleAddQuestion}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
         >
@@ -579,6 +582,7 @@ const Step2QuestionsAnswers: React.FC = () => {
 
       <div className="flex justify-end mt-4">
         <button
+          type="button"
           onClick={handleAddQuestion}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
         >

@@ -37,7 +37,7 @@ const Step3Preview: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center px-2">
-      <div className="w-full max-w-2xl bg-white rounded-lg">
+      <div className="w-full max-w-2xl rounded-lg bg-white">
         <SurveyPreview survey={surveyState} onSave={saveSurveyToLocalStorage} />
       </div>
     </div>

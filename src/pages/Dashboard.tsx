@@ -190,7 +190,7 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center gap-3">
             <div
               {...listeners}
-              className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600"
+              className="cursor-grab text-gray-400 hover:text-gray-600 active:cursor-grabbing"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +198,7 @@ const Dashboard: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="h-5 w-5"
               >
                 <path
                   strokeLinecap="round"
@@ -211,7 +211,7 @@ const Dashboard: React.FC = () => {
               type="checkbox"
               checked={selectedSurveys.has(survey.id)}
               onChange={() => handleSelectSurvey(survey.id)}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
           </div>
         </td>
@@ -220,7 +220,7 @@ const Dashboard: React.FC = () => {
             <p className="font-medium text-gray-900">
               {survey.title || "Untitled Survey"}
             </p>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="mt-1 text-sm text-gray-500">
               {survey.description || "No description"}
             </p>
           </div>
@@ -233,7 +233,7 @@ const Dashboard: React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="h-4 w-4"
             >
               <path
                 strokeLinecap="round"
@@ -252,7 +252,7 @@ const Dashboard: React.FC = () => {
             <Link
               title="Edit Survey"
               to={`/app/survey-builder/step-1/${survey.id}`}
-              className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +260,7 @@ const Dashboard: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4 mr-1"
+                className="mr-1 h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -272,7 +272,7 @@ const Dashboard: React.FC = () => {
             </Link>
             <button
               onClick={() => handleDownloadSurvey(survey)}
-              className="inline-flex items-center px-3 py-1.5 border border-green-300 text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              className="inline-flex items-center rounded-md border border-green-300 bg-green-50 px-3 py-1.5 text-sm font-medium text-green-700 hover:bg-green-100 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +280,7 @@ const Dashboard: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4 mr-1"
+                className="mr-1 h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -300,7 +300,7 @@ const Dashboard: React.FC = () => {
                   handleRemoveSurvey(survey.id);
                 }
               }}
-              className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              className="inline-flex items-center rounded-md border border-red-300 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -308,7 +308,7 @@ const Dashboard: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4 mr-1"
+                className="mr-1 h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -326,7 +326,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
@@ -339,7 +339,7 @@ const Dashboard: React.FC = () => {
             </div>
             <Link
               to="/app/survey-builder/step-1"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -347,7 +347,7 @@ const Dashboard: React.FC = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4 mr-2"
+                className="mr-2 h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -359,12 +359,12 @@ const Dashboard: React.FC = () => {
             </Link>
           </div>
         </div>
-        <div className="bg-white shadow rounded-lg mb-6">
-          <div className="px-6 py-4 border-b border-gray-200">
+        <div className="mb-6 rounded-lg bg-white shadow">
+          <div className="border-b border-gray-200 px-6 py-4">
             <div className="flex items-center justify-between">
-              <div className="flex-1 max-w-lg">
+              <div className="max-w-lg flex-1">
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -385,7 +385,7 @@ const Dashboard: React.FC = () => {
                     placeholder="Search surveys..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                    className="block w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 leading-5 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                   />
                 </div>
               </div>
@@ -397,7 +397,7 @@ const Dashboard: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDownloadSelected}
-                    className="inline-flex items-center px-3 py-1.5 border border-green-300 text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100"
+                    className="inline-flex items-center rounded-md border border-green-300 bg-green-50 px-3 py-1.5 text-sm font-medium text-green-700 hover:bg-green-100"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -405,7 +405,7 @@ const Dashboard: React.FC = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mr-1"
+                      className="mr-1 h-4 w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -418,7 +418,7 @@ const Dashboard: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleRemoveSelected}
-                    className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100"
+                    className="inline-flex items-center rounded-md border border-red-300 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -426,7 +426,7 @@ const Dashboard: React.FC = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mr-1"
+                      className="mr-1 h-4 w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -441,9 +441,9 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white shadow rounded-lg overflow-hidden">
+        <div className="overflow-hidden rounded-lg bg-white shadow">
           {filteredSurveys.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -470,7 +470,7 @@ const Dashboard: React.FC = () => {
                 <div className="mt-6">
                   <Link
                     to="/app/survey-builder/step-1"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+                    className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -478,7 +478,7 @@ const Dashboard: React.FC = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mr-2"
+                      className="mr-2 h-4 w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -503,7 +503,7 @@ const Dashboard: React.FC = () => {
                     <tr>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
                       >
                         <div className="flex items-center gap-3">
                           <span>Order</span>
@@ -514,31 +514,31 @@ const Dashboard: React.FC = () => {
                               filteredSurveys.length > 0
                             }
                             onChange={handleSelectAll}
-                            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                            className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                           />
                         </div>
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
                       >
                         Survey
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
                       >
                         Questions
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
                       >
                         Last Modified
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
                       >
                         Actions
                       </th>
@@ -548,7 +548,7 @@ const Dashboard: React.FC = () => {
                     items={filteredSurveys.map((s) => s.id)}
                     strategy={verticalListSortingStrategy}
                   >
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200 bg-white">
                       {filteredSurveys.map((survey) => (
                         <SortableRow key={survey.id} survey={survey} />
                       ))}

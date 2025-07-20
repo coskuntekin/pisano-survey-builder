@@ -9,9 +9,9 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white shadow-sm sticky top-0 z-10">
-      <div className="flex items-center gap-8 h-full">
-        <div className="flex gap-x-2 items-end h-full">
+    <header className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4 shadow-sm">
+      <div className="flex h-full items-center gap-8">
+        <div className="flex h-full items-end gap-x-2">
           <svg
             width="110"
             height="32"
@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
             end
             className={({ isActive }) =>
               [
-                "px-3 py-2 rounded transition-colors",
+                "rounded px-3 py-2 transition-colors",
                 isActive
                   ? "bg-blue-600 text-white"
                   : "text-blue-700 hover:bg-blue-100",
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
                 typeof window !== "undefined" &&
                 window.location.pathname.startsWith("/app/survey-builder");
               return [
-                "px-3 py-2 rounded transition-colors",
+                "rounded px-3 py-2 transition-colors",
                 active
                   ? "bg-blue-600 text-white"
                   : "text-blue-700 hover:bg-blue-100",
@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
           type="button"
           onClick={logout}
           disabled={isLoading}
-          className="px-4 py-2 cursor-pointer border border-blue-600 text-blue-600 rounded hover:bg-blue-50 transition-colors disabled:opacity-50"
+          className="cursor-pointer rounded border border-blue-600 px-4 py-2 text-blue-600 transition-colors hover:bg-blue-50 disabled:opacity-50"
         >
           {isLoading ? "Logging out..." : "Logout"}
         </button>

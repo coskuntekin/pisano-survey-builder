@@ -34,11 +34,11 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey, onSave }) => {
 
   return (
     <div>
-      <div className="mb-8 p-6 rounded-lg bg-blue-50 border border-blue-100">
-        <h2 className="text-2xl font-bold mb-2 text-blue-700">
+      <div className="mb-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
+        <h2 className="mb-2 text-2xl font-bold text-blue-700">
           Title: {survey.title || "Untitled Survey"}
         </h2>
-        <p className="mb-4 text-gray-600 text-base">
+        <p className="mb-4 text-base text-gray-600">
           Description: {survey.description}
         </p>
       </div>
@@ -50,11 +50,11 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey, onSave }) => {
           <QuestionRenderer key={question.id} question={question} index={idx} />
         ))}
       </div>
-      <div className="mt-10 justify-between flex items-start">
+      <div className="mt-10 flex items-start justify-between">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 flex items-center gap-2"
+          className="flex items-center gap-2 rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const SurveyPreview: React.FC<SurveyPreviewProps> = ({ survey, onSave }) => {
         </button>
         <button
           type="button"
-          className="px-6 py-2 bg-blue-600 flex items-center gap-x-1.5 text-white rounded font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+          className="flex items-center gap-x-1.5 rounded bg-blue-600 px-6 py-2 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
           onClick={handleSubmit}
           disabled={loading}
         >
@@ -108,14 +108,14 @@ const QuestionRenderer: React.FC<{ question: Question; index: number }> = ({
   index,
 }) => {
   return (
-    <div className="border border-slate-200 rounded-lg p-5 bg-white">
-      <div className="flex items-center gap-2 mb-2">
-        <small className="inline-block bg-blue-100 text-blue-700 rounded-full px-3 py-1 text-xs font-bold">
+    <div className="rounded-lg border border-slate-200 bg-white p-5">
+      <div className="mb-2 flex items-center gap-2">
+        <small className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-bold text-blue-700">
           Q{index + 1}
         </small>
-        <p className="font-medium text-lg">
+        <p className="text-lg font-medium">
           {question.text || (
-            <small className="italic text-gray-400">Untitled Question</small>
+            <small className="text-gray-400 italic">Untitled Question</small>
           )}
         </p>
       </div>
@@ -128,15 +128,15 @@ const QuestionRenderer: React.FC<{ question: Question; index: number }> = ({
       </div>
       {question.type !== "TEXT_INPUT" && (
         <div className="ml-4">
-          <p className="font-semibold text-xs text-gray-500 mb-1">Answers:</p>
+          <p className="mb-1 text-xs font-semibold text-gray-500">Answers:</p>
           {question.options.length === 0 ? (
-            <div className="italic text-gray-400">No answers defined.</div>
+            <div className="text-gray-400 italic">No answers defined.</div>
           ) : (
-            <ul className="list-disc list-inside text-gray-700 text-sm">
+            <ul className="list-inside list-disc text-sm text-gray-700">
               {question.options.map((opt) => (
                 <li key={opt.id} className="py-0.5">
                   {opt.text || (
-                    <small className="italic text-gray-400">
+                    <small className="text-gray-400 italic">
                       Untitled Answer
                     </small>
                   )}
@@ -147,7 +147,7 @@ const QuestionRenderer: React.FC<{ question: Question; index: number }> = ({
         </div>
       )}
       {question.type === "TEXT_INPUT" && (
-        <small className="ml-4 text-gray-400 italic text-sm">
+        <small className="ml-4 text-sm text-gray-400 italic">
           [Text input answer]
         </small>
       )}

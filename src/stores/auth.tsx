@@ -56,7 +56,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
       const dummyUser: User = {
         id: "1",
-        name: "John Doe",
+        name: "Jane Doe",
         email: credentials.email,
       };
       const dummyToken = "dummy-jwt-token-for-" + credentials.email;

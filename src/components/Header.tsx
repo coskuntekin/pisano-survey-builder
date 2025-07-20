@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ user, logout, isLoading }) => {
         </nav>
       </div>
       <div className="flex items-center gap-x-4">
-        {user && <span className="font-medium">Welcome, {user.name}!</span>}
+        {user && <small className="font-medium">Welcome, {user.name}!</small>}
         <button
           type="button"
           onClick={logout}

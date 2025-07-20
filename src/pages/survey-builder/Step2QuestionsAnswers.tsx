@@ -58,7 +58,7 @@ const SortableOptionItem: React.FC<{
       <button
         {...attributes}
         {...listeners}
-        className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-gray-600"
+        className="cursor-grab p-1 text-gray-400 hover:text-gray-600 active:cursor-grabbing"
         title="Drag to reorder option"
       >
         <svg
@@ -67,7 +67,7 @@ const SortableOptionItem: React.FC<{
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-4 h-4"
+          className="h-4 w-4"
         >
           <path
             strokeLinecap="round"
@@ -78,9 +78,9 @@ const SortableOptionItem: React.FC<{
       </button>
       <div className="flex items-center">
         {questionType === QuestionType.SINGLE_CHOICE ? (
-          <div className="w-4 h-4 border-2 border-gray-300 rounded-full"></div>
+          <div className="h-4 w-4 rounded-full border-2 border-gray-300"></div>
         ) : (
-          <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
+          <div className="h-4 w-4 rounded border-2 border-gray-300"></div>
         )}
       </div>
       <input
@@ -88,13 +88,13 @@ const SortableOptionItem: React.FC<{
         placeholder={`Option ${optionIndex + 1}`}
         value={option.text}
         onChange={(e) => onUpdateOption(e.target.value)}
-        className="flex-1 border border-gray-300 rounded px-2 py-1 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-200 outline-none"
+        className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-200"
       />
       {canDelete && (
         <button
           type="button"
           onClick={onDeleteOption}
-          className="text-gray-400 hover:text-red-600 transition-colors"
+          className="text-gray-400 transition-colors hover:text-red-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ const SortableOptionItem: React.FC<{
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-4 h-4"
+            className="h-4 w-4"
           >
             <path
               strokeLinecap="round"
@@ -179,14 +179,14 @@ const SortableQuestionCard: React.FC<{
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-white border border-gray-200 rounded-lg p-4 mb-4 shadow-sm"
+      className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
     >
-      <div className="flex items-center justify-between mb-3">
+      <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <button
             {...attributes}
             {...listeners}
-            className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-gray-600"
+            className="cursor-grab p-1 text-gray-400 hover:text-gray-600 active:cursor-grabbing"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +194,7 @@ const SortableQuestionCard: React.FC<{
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5"
+              className="h-5 w-5"
             >
               <path
                 strokeLinecap="round"
@@ -209,7 +209,7 @@ const SortableQuestionCard: React.FC<{
           <button
             type="button"
             onClick={() => onDuplicate(question.id)}
-            className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+            className="p-1 text-gray-400 transition-colors hover:text-blue-600"
             title="Duplicate question"
           >
             <svg
@@ -218,7 +218,7 @@ const SortableQuestionCard: React.FC<{
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="h-4 w-4"
             >
               <path
                 strokeLinecap="round"
@@ -230,7 +230,7 @@ const SortableQuestionCard: React.FC<{
           <button
             type="button"
             onClick={() => onDelete(question.id)}
-            className="p-1 text-gray-400 hover:text-red-600 transition-colors"
+            className="p-1 text-gray-400 transition-colors hover:text-red-600"
             title="Delete question"
           >
             <svg
@@ -239,7 +239,7 @@ const SortableQuestionCard: React.FC<{
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
+              className="h-4 w-4"
             >
               <path
                 strokeLinecap="round"
@@ -253,7 +253,7 @@ const SortableQuestionCard: React.FC<{
 
       <div className="mb-4">
         <textarea
-          className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded p-2 outline-none resize-none"
+          className="w-full resize-none rounded border border-gray-300 p-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           placeholder="Enter your question..."
           value={questionText}
           onChange={(e) => setQuestionText(e.target.value)}
@@ -263,13 +263,13 @@ const SortableQuestionCard: React.FC<{
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="mb-2 block text-sm font-medium text-gray-700">
           Answer Type
         </label>
         <select
           value={questionType}
           onChange={(e) => handleTypeChange(e.target.value as QuestionType)}
-          className="border border-gray-300 rounded px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+          className="rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         >
           <option value={QuestionType.SINGLE_CHOICE}>Single Choice</option>
           <option value={QuestionType.MULTIPLE_CHOICE}>Multiple Choice</option>
@@ -287,7 +287,7 @@ const SortableQuestionCard: React.FC<{
             <button
               type="button"
               onClick={() => onAddOption(question.id)}
-              className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+              className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +295,7 @@ const SortableQuestionCard: React.FC<{
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4"
+                className="h-4 w-4"
               >
                 <path
                   strokeLinecap="round"
@@ -345,12 +345,12 @@ const SortableQuestionCard: React.FC<{
       )}
 
       {questionType === QuestionType.TEXT_INPUT && (
-        <div className="border border-gray-200 rounded p-3 bg-gray-50">
+        <div className="rounded border border-gray-200 bg-gray-50 p-3">
           <input
             type="text"
             placeholder="Text input field (preview)"
             disabled
-            className="w-full border border-gray-300 rounded px-2 py-1 text-sm bg-white"
+            className="w-full rounded border border-gray-300 bg-white px-2 py-1 text-sm"
           />
         </div>
       )}
@@ -501,19 +501,19 @@ const Step2QuestionsAnswers: React.FC = () => {
 
   return (
     <Fragment>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">
             Step 2: Create Questions & Answers
           </h2>
-          <p className="text-gray-600 mt-1">
+          <p className="mt-1 text-gray-600">
             Add questions and configure their answer options
           </p>
         </div>
         <button
           type="button"
           onClick={handleAddQuestion}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
+          className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -521,7 +521,7 @@ const Step2QuestionsAnswers: React.FC = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -534,14 +534,14 @@ const Step2QuestionsAnswers: React.FC = () => {
       </div>
 
       {surveyState.questions.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="py-12 text-center text-gray-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-12 h-12 mx-auto mb-4 text-gray-300"
+            className="mx-auto mb-4 h-12 w-12 text-gray-300"
           >
             <path
               strokeLinecap="round"
@@ -580,11 +580,11 @@ const Step2QuestionsAnswers: React.FC = () => {
         </DndContext>
       )}
 
-      <div className="flex justify-end mt-4">
+      <div className="mt-4 flex justify-end">
         <button
           type="button"
           onClick={handleAddQuestion}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2"
+          className="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -592,7 +592,7 @@ const Step2QuestionsAnswers: React.FC = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -606,10 +606,10 @@ const Step2QuestionsAnswers: React.FC = () => {
 
       <hr className="my-4 border-gray-200" />
 
-      <div className="flex justify-between mt-8">
+      <div className="mt-8 flex justify-between">
         <button
           type="button"
-          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 flex items-center gap-2"
+          className="flex items-center gap-2 rounded bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
           onClick={() => {
             saveSurveyToLocalStorage();
             navigate(`../step-1/${id || surveyState.id}`);
@@ -621,7 +621,7 @@ const Step2QuestionsAnswers: React.FC = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -633,7 +633,7 @@ const Step2QuestionsAnswers: React.FC = () => {
         </button>
         <button
           type="button"
-          className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-2 ${
+          className={`flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 ${
             isNextEnabled ? "cursor-pointer" : "cursor-not-allowed opacity-50"
           }`}
           onClick={() => {
@@ -649,7 +649,7 @@ const Step2QuestionsAnswers: React.FC = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"

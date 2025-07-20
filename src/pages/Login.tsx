@@ -47,7 +47,7 @@ export default function Login() {
           autoComplete="username"
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-2 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mt-1 w-full rounded border border-gray-300 px-2 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           aria-required="true"
           aria-label="Email address"
         />
@@ -61,7 +61,7 @@ export default function Login() {
           autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-2 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mt-1 w-full rounded border border-gray-300 px-2 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
           aria-required="true"
           aria-label="Password"
         />
@@ -69,7 +69,7 @@ export default function Login() {
       <button
         type="submit"
         disabled={isLoading}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+        className="mt-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
         aria-busy={isLoading}
         aria-disabled={isLoading}
       >
@@ -77,7 +77,7 @@ export default function Login() {
       </button>
       {error && (
         <div
-          className="text-red-600 mt-2 text-center"
+          className="mt-2 text-center text-red-600"
           role="alert"
           aria-live="assertive"
         >

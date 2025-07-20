@@ -80,7 +80,7 @@ const Step1Metadata: React.FC = () => {
 
   return (
     <Fragment>
-      <h2 className="text-2xl font-bold mb-6">Survey Details</h2>
+      <h2 className="mb-6 text-2xl font-bold">Survey Details</h2>
       <SurveyMetadataForm
         disabled={false}
         showNext={true}

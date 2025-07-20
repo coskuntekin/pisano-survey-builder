@@ -8,7 +8,7 @@ export default function AppLayout() {
 
   return (
     <SurveyProvider>
-      <section className="min-h-screen flex flex-col bg-gray-50">
+      <section className="flex min-h-screen flex-col bg-gray-50">
         <Header user={user} logout={logout} isLoading={isLoading} />
         <main className="flex-1 p-8">
           <Outlet />

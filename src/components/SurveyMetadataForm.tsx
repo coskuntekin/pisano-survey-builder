@@ -40,7 +40,7 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
 
   return (
     <form
-      className="flex flex-col gap-4 mb-6"
+      className="mb-6 flex flex-col gap-4"
       aria-label="Survey Metadata"
       onSubmit={(e) => {
         e.preventDefault();
@@ -48,31 +48,31 @@ const SurveyMetadataForm: React.FC<SurveyMetadataFormProps> = ({
       }}
     >
       <label className="flex flex-col">
-        <small className="font-semibold mb-1">Survey Title</small>
+        <small className="mb-1 font-semibold">Survey Title</small>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter survey title"
-          className="border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-3 py-2 rounded outline-none"
+          className="rounded border border-gray-400 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           disabled={disabled}
         />
       </label>
       <label className="flex flex-col">
-        <small className="font-semibold mb-1">Description</small>
+        <small className="mb-1 font-semibold">Description</small>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Enter survey description"
-          className="border border-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-3 py-2 rounded resize-y min-h-[60px] outline-none"
+          className="min-h-[60px] resize-y rounded border border-gray-400 px-3 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           disabled={disabled}
         />
       </label>
       {showNext && (
         <button
           type="submit"
-          className={`self-end bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white flex items-center gap-2 ${
-            canProceed ? "cursor-pointer" : " cursor-not-allowed"
+          className={`flex items-center gap-2 self-end rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 ${
+            canProceed ? "cursor-pointer" : "cursor-not-allowed"
           }`}
           disabled={!canProceed}
         >
